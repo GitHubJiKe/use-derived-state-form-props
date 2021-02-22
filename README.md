@@ -16,12 +16,12 @@ export default function useDerivedStateFromProps<T>(s: T) {
     stateRef.current = s;
   }, [s]);
 
-  function setState(v: T | ((v: T) => T)) {
-    stateRef.current = isFunction(v) ? v(stateRef.current) : v;
+  function setState(s: T | ((s: T) => T)) {
+    stateRef.current = isFunction(s) ? s(stateRef.current) : s;
     forceUpdate({});
   }
 
-  return [stateRef.current, setState] as [T, (v: T | ((v: T) => T)) => void];
+  return [stateRef.current, setState] as [T, (s: T | ((s: T) => T)) => void];
 }
 
 function isFunction(params: any): params is (...args: any[]) => any {
